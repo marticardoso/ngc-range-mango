@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import { NgcRangeLabelComponent } from './ngc-range-label.component';
 
 describe('NgcRangeLabelComponent', () => {
@@ -47,7 +45,7 @@ describe('NgcRangeLabelComponent', () => {
     expect(fixture.nativeElement.querySelector('input')).toBeNull();
   });
 
-  it('#onKeydown() should stop the edition and emit value change', () => {
+  it('#onKeydown() should stop editing and emit changes', () => {
     spyOn(component.valueChange, 'emit');
     fixture.detectChanges();
     component.isEditing = true;
@@ -60,7 +58,7 @@ describe('NgcRangeLabelComponent', () => {
     expect(fixture.nativeElement.querySelector('input')).toBeNull();
   });
 
-  it('#onKeydown() should stop the edition and do not emit value change', () => {
+  it('#onKeydown() should stop editing and do not emit changes', () => {
     spyOn(component.valueChange, 'emit');
     fixture.detectChanges();
     component.isEditing = true;
@@ -70,7 +68,7 @@ describe('NgcRangeLabelComponent', () => {
     expect(component.valueChange.emit).not.toHaveBeenCalled();
   });
 
-  it('#onKeydown() should keep the edition', () => {
+  it('#onKeydown() should keep editing', () => {
     spyOn(component.valueChange, 'emit');
     fixture.detectChanges();
     component.isEditing = true;
@@ -78,7 +76,7 @@ describe('NgcRangeLabelComponent', () => {
     expect(component.isEditing).toBeTrue();
   });
 
-  it('#emitChanges() should emit value change', () => {
+  it('#emitChanges() should emit changes', () => {
     spyOn(component.valueChange, 'emit');
     fixture.detectChanges();
     component.isEditing = true;
@@ -89,7 +87,7 @@ describe('NgcRangeLabelComponent', () => {
     expect(component.valueChange.emit).toHaveBeenCalled();
   });
 
-  it('#emitChanges() should not emit value change', () => {
+  it('#emitChanges() should not emit changes', () => {
     spyOn(component.valueChange, 'emit');
     fixture.detectChanges();
     component.isEditing = true;

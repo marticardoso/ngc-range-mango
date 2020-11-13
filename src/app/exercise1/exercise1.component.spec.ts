@@ -24,7 +24,6 @@ describe('Exercise1Component', () => {
   });
 
   it('should initialize parameters for Exercise 1', () => {
-    fixture.detectChanges();
     expect(component.min).toBe(1);
     expect(component.max).toBe(100);
     expect(component.range[0]).toBe(component.min);

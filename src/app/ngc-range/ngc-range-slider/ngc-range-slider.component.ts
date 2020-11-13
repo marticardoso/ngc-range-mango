@@ -53,20 +53,20 @@ export class NgcRangeSliderComponent implements OnInit {
   // then the move direction will decide the sliding bullet (min or max).
   private bothBulletsHadSameValueWhenClicked: boolean = false;
 
-  // When sliding a bullet, the editingRange is used in order to show more fluidity in animations
+  // When sliding a bullet, the editingRange is used in order to show more fluid animations
   // (especially for the fixed case)
   private editingRange: [number, number];
 
   public onMouseDownMinBullet() {
     this.isSlidingMin = true;
     this.editingRange = [...this.range];
-    this.bothBulletsHadSameValueWhenClicked = this.range[0] == this.range[1];
+    this.bothBulletsHadSameValueWhenClicked = this.range[0] === this.range[1];
   }
 
   public onMouseDownMaxBullet() {
     this.isSlidingMax = true;
     this.editingRange = [...this.range];
-    this.bothBulletsHadSameValueWhenClicked = this.range[0] == this.range[1];
+    this.bothBulletsHadSameValueWhenClicked = this.range[0] === this.range[1];
   }
 
   public onMouseMove(event: MouseEvent): void {

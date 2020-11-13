@@ -55,7 +55,7 @@ export class NgcRangeComponent implements OnInit, ControlValueAccessor {
   public values: number[] = [1, 100]; // Only used for fixed type
 
   public get isFixedType() {
-    return this.type == 'fixed';
+    return this.type === 'fixed';
   }
 
   public onMinValueChange(value: number): void {
@@ -109,8 +109,8 @@ export class NgcRangeComponent implements OnInit, ControlValueAccessor {
     return (
       value &&
       Array.isArray(value) &&
-      value.length == 2 &&
-      value.every((v) => typeof v == 'number')
+      value.length === 2 &&
+      value.every((v) => typeof v === 'number')
     );
   }
 
