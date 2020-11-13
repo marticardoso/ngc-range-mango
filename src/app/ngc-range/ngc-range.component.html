@@ -1,0 +1,32 @@
+<div class="row">
+  <!-- Min value label -->
+  <div class="label-left">
+    <ngc-range-label
+      [value]="range[0]"
+      (valueChange)="onMinValueChange($event)"
+      [disabled]="isFixedType"
+    >
+    </ngc-range-label>
+  </div>
+  <!-- Slider -->
+  <div class="slider">
+    <ngc-range-slider
+      [min]="min"
+      [max]="max"
+      [values]="values"
+      [range]="range"
+      (rangeChange)="onRangeChange($event)"
+      [isFixedType]="isFixedType"
+    >
+    </ngc-range-slider>
+  </div>
+  <!-- Max value label -->
+  <div class="label-right">
+    <ngc-range-label
+      [value]="range[1]"
+      (valueChange)="onMaxValueChange($event)"
+      [disabled]="isFixedType"
+    >
+    </ngc-range-label>
+  </div>
+</div>

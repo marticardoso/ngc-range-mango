@@ -1,0 +1,21 @@
+.row {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.label-left {
+  text-align: right;
+  width: 100px;
+}
+
+.label-right {
+  text-align: left;
+  width: 100px;
+}
+
+.slider {
+  width: 100%;
+}

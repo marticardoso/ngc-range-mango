@@ -1,0 +1,14 @@
+<div class="ngc-range-label">
+  <div *ngIf="!isEditing" class="unselectable" (dblclick)="labelDblClick()">
+    {{ label }}
+  </div>
+  <input
+    *ngIf="isEditing"
+    type="number"
+    id="idtest"
+    [(ngModel)]="editedValue"
+    min="0"
+    (keydown)="onKeydown($event)"
+    (blur)="emitChanges()"
+  />
+</div>

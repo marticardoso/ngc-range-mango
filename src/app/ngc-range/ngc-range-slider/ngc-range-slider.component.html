@@ -1,0 +1,15 @@
+<div
+  class="ngc-range"
+  (window:mousemove)="onMouseMove($event)"
+  (window:mouseup)="onMouseUp()"
+>
+  <div class="ngc-range-wrapper" id="ngc-range-wrapper" #ngcRangeWrapper>
+    <div class="ngc-range-line"></div>
+    <div [ngStyle]="getBulletMinStyles()">
+      <div class="ngc-range-bullet" (mousedown)="onMouseDownMinBullet()"></div>
+    </div>
+    <div [ngStyle]="getBulletMaxStyles()">
+      <div class="ngc-range-bullet" (mousedown)="onMouseDownMaxBullet()"></div>
+    </div>
+  </div>
+</div>

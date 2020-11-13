@@ -1,0 +1,53 @@
+$theme: blue;
+$ngc-range-button-size: 12px;
+$ngc-range-button-large-size: 18px;
+$ngc-range-line-height: 2px;
+
+.ngc-range {
+  width: 100%;
+  min-width: 100px;
+  min-height: 20px;
+  position: relative;
+}
+
+.ngc-range-wrapper {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  right: 13px;
+}
+
+.ngc-range-line {
+  position: absolute;
+  height: $ngc-range-line-height;
+  width: 100%;
+  background-color: $theme;
+}
+
+.ngc-range-bullet {
+  position: absolute;
+  width: $ngc-range-button-size;
+  height: $ngc-range-button-size;
+  right: -$ngc-range-button-size / 2;
+  bottom: -($ngc-range-button-size + $ngc-range-line-height) / 2;
+  background-color: $theme;
+  border-radius: 50%;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.ngc-range-bullet:hover {
+  width: $ngc-range-button-large-size;
+  height: $ngc-range-button-large-size;
+  right: -$ngc-range-button-large-size / 2;
+  bottom: -($ngc-range-button-large-size + $ngc-range-line-height) / 2;
+}
+
+/* "closed-hand" cursor during drag operation. */
+.ngc-range-bullet:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
