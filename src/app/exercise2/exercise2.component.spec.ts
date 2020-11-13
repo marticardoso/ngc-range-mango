@@ -24,7 +24,7 @@ describe('Exercise2Component', () => {
   });
 
   it('should initialize parameters for Exercise 2', () => {
-    expect(component.values).not.toBeNull;
+    expect(component.values).not.toBeNull();
     expect(component.values.length).toBe(6);
     expect(component.values[0]).toBe(1.99);
     expect(component.values[5]).toBe(70.99);

@@ -30,15 +30,26 @@ export class NgcRangeSliderComponent implements OnInit {
   public values: number[] = [];
 
   @Input()
-  public isFixedType: boolean = false;
+  public isFixedType = false;
 
   @ViewChild('ngcRangeWrapper') private ngcRange: ElementRef;
 
-  private get ngcRangeDimensions() {
+  private get ngcRangeDimensions(): any{
     return this.ngcRange
       ? this.ngcRange.nativeElement.getBoundingClientRect()
       : null;
   }
+
+  private isSlidingMin = false;
+  private isSlidingMax = false;
+
+  // Field used when both bullets have the same value,
+  // then the move direction will decide the sliding bullet (min or max).
+  private bothBulletsHadSameValueWhenClicked = false;
+
+  // When sliding a bullet, the editingRange is used in order to show more fluid animations
+  // (especially for the fixed case)
+  private editingRange: [number, number];
 
   ngOnInit(): void {
     if (!this.range) {
@@ -46,24 +57,13 @@ export class NgcRangeSliderComponent implements OnInit {
     }
   }
 
-  private isSlidingMin: boolean = false;
-  private isSlidingMax: boolean = false;
-
-  //Field used when both bullets have the same value,
-  // then the move direction will decide the sliding bullet (min or max).
-  private bothBulletsHadSameValueWhenClicked: boolean = false;
-
-  // When sliding a bullet, the editingRange is used in order to show more fluid animations
-  // (especially for the fixed case)
-  private editingRange: [number, number];
-
-  public onMouseDownMinBullet() {
+  public onMouseDownMinBullet(): void {
     this.isSlidingMin = true;
     this.editingRange = [...this.range];
     this.bothBulletsHadSameValueWhenClicked = this.range[0] === this.range[1];
   }
 
-  public onMouseDownMaxBullet() {
+  public onMouseDownMaxBullet(): void{
     this.isSlidingMax = true;
     this.editingRange = [...this.range];
     this.bothBulletsHadSameValueWhenClicked = this.range[0] === this.range[1];
@@ -81,13 +81,13 @@ export class NgcRangeSliderComponent implements OnInit {
     this.isSlidingMin = false;
   }
 
-  private updateValueFromPosition(pos: { x: number; y: number }) {
+  private updateValueFromPosition(pos: { x: number; y: number }): void{
     if (!this.ngcRangeDimensions) {
       return;
     }
 
     // Value calculated from click position and wrapper dimensions.
-    let percent =
+    const percent =
       (pos.x - this.ngcRangeDimensions.left) / this.ngcRangeDimensions.width;
 
     let newValue: number;
@@ -100,7 +100,7 @@ export class NgcRangeSliderComponent implements OnInit {
       newValue = this.calculateRangeValue(percent);
     }
 
-    //Case when both bullets had the same range value when clicked.
+    // Case when both bullets had the same range value when clicked.
     if (this.bothBulletsHadSameValueWhenClicked) {
       this.bothBulletsHadSameValueWhenClicked = false;
       this.isSlidingMin = newValue < this.range[0];
@@ -121,7 +121,7 @@ export class NgcRangeSliderComponent implements OnInit {
 
   private mapToValidRangeValue(rangeValue: number): number {
     if (this.isFixedType) {
-      //Fixed type => Find the nearest value
+      // Fixed type => Find the nearest value
       return this.values.reduce(
         (nearest, value) =>
           Math.abs(nearest - rangeValue) > Math.abs(value - rangeValue)
@@ -130,38 +130,38 @@ export class NgcRangeSliderComponent implements OnInit {
         Infinity
       );
     } else {
-      //Normal type => round to integer
+      // Normal type => round to integer
       return Math.round(rangeValue);
     }
   }
 
   /** Calculates the range value [min,max] given a percentage [0,1]. */
-  private calculateRangeValue(percentage: number) {
+  private calculateRangeValue(percentage: number): number {
     return this.min + percentage * (this.max - this.min);
   }
 
   /** Calculates the percentage [0,1] given a range value [min,max]. */
-  private calculatePercentage(value: number) {
+  private calculatePercentage(value: number): number {
     return (value - this.min) / (this.max - this.min);
   }
 
   public getBulletMinStyles(): { [key: string]: string } {
-    let minValue =
+    const minValue =
       this.isSlidingMin && this.editingRange
         ? this.editingRange[0]
         : this.range[0];
-    let offset = (1 - this.calculatePercentage(minValue)) * 100;
+    const offset = (1 - this.calculatePercentage(minValue)) * 100;
     return {
       transform: `translateX(-${offset}%)`,
     };
   }
 
   public getBulletMaxStyles(): { [key: string]: string } {
-    let maxValue =
+    const maxValue =
       this.isSlidingMax && this.editingRange
         ? this.editingRange[1]
         : this.range[1];
-    let offset = (1 - this.calculatePercentage(maxValue)) * 100;
+    const offset = (1 - this.calculatePercentage(maxValue)) * 100;
     return {
       transform: `translateX(-${offset}%)`,
     };

@@ -23,24 +23,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class NgcRangeComponent implements OnInit, ControlValueAccessor {
   constructor() {}
 
-  ngOnInit(): void {
-    if (this.isFixedType) {
-      this.values = this.values.sort();
-      this.min = this.values[0];
-      this.max = this.values[this.values.length - 1];
-    }
-    //Initialize range
-    if (!this.range) {
-      this.range = [this.min, this.max];
-      this.emitChanges();
-    }
-  }
+  @Input()
+  public min = 0;
 
   @Input()
-  public min: number = 0;
-
-  @Input()
-  public max: number = 100;
+  public max = 100;
 
   // Range is an array of length 2: [Min, Max]
   public range: [number, number];
@@ -49,13 +36,26 @@ export class NgcRangeComponent implements OnInit, ControlValueAccessor {
   public rangeChange = new EventEmitter<number[]>();
 
   @Input()
-  public type: string = 'normal'; //values: "normal" or "fixed"
+  public type = 'normal'; // values: "normal" or "fixed"
 
   @Input()
   public values: number[] = [1, 100]; // Only used for fixed type
 
-  public get isFixedType() {
+  public get isFixedType(): boolean {
     return this.type === 'fixed';
+  }
+
+  ngOnInit(): void {
+    if (this.isFixedType) {
+      this.values = this.values.sort();
+      this.min = this.values[0];
+      this.max = this.values[this.values.length - 1];
+    }
+    // Initialize range
+    if (!this.range) {
+      this.range = [this.min, this.max];
+      this.emitChanges();
+    }
   }
 
   public onMinValueChange(value: number): void {
@@ -92,7 +92,7 @@ export class NgcRangeComponent implements OnInit, ControlValueAccessor {
     this.rangeChange.emit(this.range);
   }
 
-  //NgModel
+  // NgModel
   onChange = (_: any) => {};
   onTouch = () => {};
 
@@ -100,12 +100,12 @@ export class NgcRangeComponent implements OnInit, ControlValueAccessor {
     if (this.isValidRange(value)) {
       this.range = value;
     } else {
-      this.range = [this.min, this.max]; //Default values
+      this.range = [this.min, this.max]; // Default values
     }
     this.rangeChange.emit(this.range);
   }
 
-  private isValidRange(value: any) {
+  private isValidRange(value: any): boolean {
     return (
       value &&
       Array.isArray(value) &&

@@ -13,14 +13,14 @@ export class NgcRangeLabelComponent {
   public valueChange = new EventEmitter<number>();
 
   @Input()
-  public disabled: boolean = false;
+  public disabled = false;
 
   public get label(): string {
     return (this.value ?? 0) + '€';
   }
 
   public editedValue: number;
-  public isEditing: boolean = false;
+  public isEditing = false;
 
   public labelDblClick(): void {
     if (!this.disabled) {
@@ -37,7 +37,7 @@ export class NgcRangeLabelComponent {
 
   public emitChanges(): void {
     this.isEditing = false;
-    if (this.editedValue != this.value) {
+    if (this.editedValue !== this.value) {
       this.valueChange.emit(this.editedValue);
     }
   }
